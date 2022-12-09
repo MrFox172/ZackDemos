@@ -1,5 +1,5 @@
 package com.revature;
-
+import com.revature.exceptions.MyCheckedException;
 public class Driver {
     public static void main(String[] args)
     {
@@ -30,6 +30,30 @@ public class Driver {
         {
             System.out.println("Unknown exception");
             e.printStackTrace();
+        }
+        finally
+        {
+            System.out.println("Hello from the finally block - I will always run");
+        }
+        /*
+        Rule of thumb - specific to generic to help you find where the bugs are.
+         */
+        System.out.println("=============================Throwing custom exceptions");
+        try {
+            badTake("Mudkip");
+        }
+        catch (MyCheckedException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void badTake(String s) throws MyCheckedException
+    {
+        switch (s.toLowerCase()) {
+            case "charmander": throw new MyCheckedException("Awful pick mate");
+            case "mudkip": System.out.println("Excellent choice good sir"); break;
+            default: System.out.println("At least you didn't choose Charmander");
         }
     }
 
